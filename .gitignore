@@ -1,0 +1,22 @@
+# exclude everything except what we specifically say (work as white list)
+/*
+
+# Whitelisted folders and files
+!README.md
+!.gitignore
+!/test
+!/migrations
+!/pages
+!/old_pages
+!/components
+!/helpers
+!package.json
+!routes.js
+!server.js
+!Addresses.txt
+!truffle.js
+!truffle-config.js
+
+# Allow contracts to be tracked but not .json files of them
+!/contracts
+/contracts/build
