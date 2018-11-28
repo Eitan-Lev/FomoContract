@@ -11,7 +11,7 @@ const ticket2 = 4;
 const ticket3 = 2;
 const feeValue = 1;
 let totalAmount = 0;
-const timeInterval = 10;
+const timeInterval = 5;
 
 contract("fomoNoCallback", function(accounts) {
 	gameCreator = accounts[0];
@@ -59,22 +59,18 @@ contract("fomoNoCallback", function(accounts) {
 			assert.equal(lastWinAmount, totalAmount);
 			assert.equal(lastWinner, receipt.logs[0].args._winner);
 			assert.equal(lastWinAmount, receipt.logs[0].args._amount);
-			lastWinTime = receipt.logs[0].args._lastWinTime;
-			//anotherLastWinTime = await FomoInstance.lastWinTime();
-			//assert.equal(lastWinTime.toNumber(), anotherLastWinTime);
+			lastWinTime = (receipt.logs[0].args._lastWinTime).toNumber();
+			sameLastWinTime = (await FomoInstance.lastWinTime()).toNumber();
+			assert.equal(lastWinTime, sameLastWinTime);
 
-			//assert.equal(lastWinTime.toNumber(), (await FomoInstance.lastWinTime()));
-			//assert.equal(lastWinTime, (await FomoInstance.lastWinTime).toNumber());
-
-			//await FomoInstance.announceWinner({value: 3});
-			//assert.equal(lastWinTime, await FomoInstance.lastWinTime());
+			receipt = await FomoInstance.announceWinner({value: 3});
+			assert.equal(receipt.logs.length, 0, "expected for no events to be emitted");
 		});
 	});
 });
 
 
 let secondsSleep = async function(seconds) {
-	//await new Promise(resolve => setTimeout(resolve, (timeInterval*1000)/2));
 	await new Promise(resolve => setTimeout(resolve, seconds*1000));
 };
 
