@@ -1,4 +1,7 @@
 # FOMO contract
+
+[![Build status](https://dev.azure.com/eitanlev/FomoContract/_apis/build/status/FomoContract-CI?branchName=AzurePipelines)](https://dev.azure.com/eitanlev/FomoContract/_build/latest?definitionId=1)
+
 ___
 Note that these instructions are dynamic, since I don't want to install anything that might be relevant, only the ones we actually need.
 
