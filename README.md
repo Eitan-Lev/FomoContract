@@ -1,4 +1,7 @@
 # FOMO contract
+
+third trial
+
 ___
 Note that these instructions are dynamic, since I don't want to install anything that might be relevant, only the ones we actually need.
 
