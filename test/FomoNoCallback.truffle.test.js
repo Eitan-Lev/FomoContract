@@ -11,7 +11,7 @@ const ticket2 = 4;
 const ticket3 = 2;
 const feeValue = 1;
 let totalAmount = 0;
-const timeInterval = 5;
+const timeInterval = 10;
 
 contract("fomoNoCallback", function(accounts) {
 	gameCreator = accounts[0];
@@ -41,13 +41,15 @@ contract("fomoNoCallback", function(accounts) {
 			assert.equal(contractBalance, totalAmount);
 
 			await secondsSleep(timeInterval/2);
-			await FomoInstance.announceWinner({value: 3});
+			receipt = await FomoInstance.announceWinner({value: 3});
+			assert.equal(receipt.logs.length, 0);
 			contractBalance = (await FomoInstance.currentWinAmount()).toNumber();
 			assert.equal(contractBalance, totalAmount);
 			lastWinAmount = (await FomoInstance.lastWinAmount()).toNumber();
 			assert.equal(lastWinAmount, 0);
-
-			await secondsSleep(timeInterval/2);
+			
+			//2 to definitelly be after interval:
+			await secondsSleep(timeInterval/2 + 2);
 			receipt = await FomoInstance.announceWinner({value: 3});
 			lastPlayer = (await FomoInstance.lastPlayer());
 			currentWinAmount = (await FomoInstance.currentWinAmount()).toNumber();

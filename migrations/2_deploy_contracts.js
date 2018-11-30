@@ -3,8 +3,9 @@
 //const DepositConract = artifacts.require("Deposit");
 const FomoNoCallback = artifacts.require("FomoNoCallback");
 
-module.exports = async function(deployer, network, accounts) {
-	deployer.deployer(FomoNoCallback);
+//module.exports = async function(deployer, network, accounts) {
+module.exports = function(deployer, network, accounts) {
+	deployer.deploy(FomoNoCallback);
 	//deployer.deploy(DepositFactory);
 	//deployer.deploy(SgxSimulator);
 	//var A = await deployer.deploy(DepositFactory);
