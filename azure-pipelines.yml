@@ -11,6 +11,27 @@ steps:
   displayName: 'Run a one-line script'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    npm install
+  displayName: 'npm install'
+  
+# Insert this before running Truffle Test. This will set the reporter to output junit XML
+- script: |
+    sed -i -e 's/reporter: "spec"/reporter: "mocha-junit-reporter"/g' truffle.js
+  displayName: 'configure mocha to output junit'
+  
+- script: |
+    npx ganache-cli &
+    sleep 5
+  displayName: 'ganache start'
+  
+- script: |
+    npx truffle compile
+    npx truffle test
+  displayName: 'truffle compile & test'
+  
+# Put this after running Truffle Test. Publishes Test Results in Azure DevOps
+- task: PublishTestResults@2
+  condition: always()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml' 
