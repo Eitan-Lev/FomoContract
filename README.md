@@ -1,6 +1,6 @@
 # FOMO contract
 
-[![Build status](https://dev.azure.com/eitanlev/FomoContract2/_apis/build/status/FomoContract-CI-%20truffle%20testing?branchName=master)](https://dev.azure.com/eitanlev/FomoContract2/_build/latest?definitionId=4)
+[![Build status](https://dev.azure.com/eitanlev/FomoContract2/_apis/build/status/FomoContract-CI-%20truffle%20testing?branchName=azure-pipelines)](https://dev.azure.com/eitanlev/FomoContract2/_build/latest?definitionId=4)
 
 Note that these instructions are dynamic, since I don't want to install anything that might be relevant, only the ones we actually need.
 
