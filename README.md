@@ -1,6 +1,6 @@
 # FOMO contract
 
-[![Build status](https://dev.azure.com/eitanlev/FomoContract2/_apis/build/status/FomoContract-CI-%20truffle%20testing?branchName=azure-pipelines)](https://dev.azure.com/eitanlev/FomoContract2/_build/latest?definitionId=4)
+[![Build Status](https://dev.azure.com/eitanlev/DevOpsEthereumProject/_apis/build/status/Eitan-Lev.FomoContract?branchName=azure-pipelines)](https://dev.azure.com/eitanlev/DevOpsEthereumProject/_build/latest?definitionId=7)
 
 Note that these instructions are dynamic, since I don't want to install anything that might be relevant, only the ones we actually need.
 
