@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "lite-server"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "mocha": "^5.2.0",
     "mocha-junit-reporter": "^1.18.0",
-    "truffle": "^4.1.14"
+    "truffle": "^4.1.14",
+    "lite-server": "^2.3.0"
   }
 }
