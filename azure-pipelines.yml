@@ -12,6 +12,7 @@ steps:
 
 - script: |
     npm install
+    npm install truffle@beta --save-dev
   displayName: 'npm install'
   
 # Insert this before running Truffle Test. This will set the reporter to output junit XML

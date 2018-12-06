@@ -67,7 +67,7 @@ contract Fomo is usingOraclize{
           return true;
       }
 
-      function __callback(bytes32 id, string memory result, bytes memory proof) public {
+      function __callback(bytes32 id) public {
           if (id == LastQueryId) {
               announceWinner();
             }

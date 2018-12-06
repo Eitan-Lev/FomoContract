@@ -357,11 +357,12 @@ contract usingOraclize {
         return false;
     }
 
-    function __callback(bytes32 myid, string memory result) public {
+    //function __callback(bytes32 myid, string memory result) public {
+    function __callback(bytes32 myid, string memory result) public pure {
         __callback(myid, result, new bytes(0));
     }
-		function __callback(bytes32 myid, string memory result, bytes memory proof) public {
-    //function __callback(bytes32 myid, string memory result, bytes memory proof) public pure {
+		//function __callback(bytes32 myid, string memory result, bytes memory proof) public {
+		function __callback(bytes32 myid, string memory result, bytes memory proof) public pure {
       return;
       myid; result; proof; // Silence compiler warnings
     }
