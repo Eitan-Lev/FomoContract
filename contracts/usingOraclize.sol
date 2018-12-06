@@ -360,7 +360,8 @@ contract usingOraclize {
     function __callback(bytes32 myid, string memory result) public {
         __callback(myid, result, new bytes(0));
     }
-    function __callback(bytes32 myid, string memory result, bytes memory proof) public {
+		function __callback(bytes32 myid, string memory result, bytes memory proof) public {
+    //function __callback(bytes32 myid, string memory result, bytes memory proof) public pure {
       return;
       myid; result; proof; // Silence compiler warnings
     }
@@ -760,31 +761,31 @@ contract usingOraclize {
         return oraclize.randomDS_getSessionPubKeyHash();
     }
 
-    function getCodeSize(address _addr) internal returns(uint _size) {
+    function getCodeSize(address _addr) internal view returns(uint _size) {
         assembly {
             _size := extcodesize(_addr)
         }
     }
 
-    function parseAddr(string memory _a) internal pure returns (address){
-        bytes memory tmp = bytes(_a);
-        uint160 iaddr = 0;
-        uint160 b1;
-        uint160 b2;
-        for (uint i=2; i<2+2*20; i+=2){
-            iaddr *= 256;
-            b1 = uint160(tmp[i]);
-            b2 = uint160(tmp[i+1]);
-            if ((b1 >= 97)&&(b1 <= 102)) b1 -= 87;
-            else if ((b1 >= 65)&&(b1 <= 70)) b1 -= 55;
-            else if ((b1 >= 48)&&(b1 <= 57)) b1 -= 48;
-            if ((b2 >= 97)&&(b2 <= 102)) b2 -= 87;
-            else if ((b2 >= 65)&&(b2 <= 70)) b2 -= 55;
-            else if ((b2 >= 48)&&(b2 <= 57)) b2 -= 48;
-            iaddr += (b1*16+b2);
-        }
-        return address(iaddr);
-    }
+    //function parseAddr(string memory _a) internal pure returns (address){
+        //bytes memory tmp = bytes(_a);
+        //uint160 iaddr = 0;
+        //uint160 b1;
+        //uint160 b2;
+        //for (uint i=2; i<2+2*20; i+=2){
+            //iaddr *= 256;
+            //b1 = uint160(tmp[i]);
+            //b2 = uint160(tmp[i+1]);
+            //if ((b1 >= 97)&&(b1 <= 102)) b1 -= 87;
+            //else if ((b1 >= 65)&&(b1 <= 70)) b1 -= 55;
+            //else if ((b1 >= 48)&&(b1 <= 57)) b1 -= 48;
+            //if ((b2 >= 97)&&(b2 <= 102)) b2 -= 87;
+            //else if ((b2 >= 65)&&(b2 <= 70)) b2 -= 55;
+            //else if ((b2 >= 48)&&(b2 <= 57)) b2 -= 48;
+            //iaddr += (b1*16+b2);
+        //}
+        //return address(iaddr);
+    //}
 
     function strCompare(string memory _a, string memory _b) internal pure returns (int) {
         bytes memory a = bytes(_a);
@@ -861,46 +862,46 @@ contract usingOraclize {
         return strConcat(_a, _b, "", "", "");
     }
 
-    // parseInt
-    function parseInt(string memory _a) internal pure returns (uint) {
-        return parseInt(_a, 0);
-    }
+    //// parseInt
+    //function parseInt(string memory _a) internal pure returns (uint) {
+        //return parseInt(_a, 0);
+    //}
 
-    // parseInt(parseFloat*10^_b)
-    function parseInt(string memory _a, uint _b) internal pure returns (uint) {
-        bytes memory bresult = bytes(_a);
-        uint mint = 0;
-        bool decimals = false;
-        for (uint i=0; i<bresult.length; i++){
-            if ((bresult[i] >= 48)&&(bresult[i] <= 57)){
-                if (decimals){
-                   if (_b == 0) break;
-                    else _b--;
-                }
-                mint *= 10;
-                mint += uint(bresult[i]) - 48;
-            } else if (bresult[i] == 46) decimals = true;
-        }
-        if (_b > 0) mint *= 10**_b;
-        return mint;
-    }
+    //// parseInt(parseFloat*10^_b)
+    //function parseInt(string memory _a, uint _b) internal pure returns (uint) {
+        //bytes memory bresult = bytes(_a);
+        //uint mint = 0;
+        //bool decimals = false;
+        //for (uint i=0; i<bresult.length; i++){
+            //if ((bresult[i] >= 48)&&(bresult[i] <= 57)){
+                //if (decimals){
+                   //if (_b == 0) break;
+                    //else _b--;
+                //}
+                //mint *= 10;
+                //mint += uint(bresult[i]) - 48;
+            //} else if (bresult[i] == 46) decimals = true;
+        //}
+        //if (_b > 0) mint *= 10**_b;
+        //return mint;
+    //}
 
-    function uint2str(uint i) internal pure returns (string memory){
-        if (i == 0) return "0";
-        uint j = i;
-        uint len;
-        while (j != 0){
-            len++;
-            j /= 10;
-        }
-        bytes memory bstr = new bytes(len);
-        uint k = len - 1;
-        while (i != 0){
-            bstr[k--] = byte(48 + i % 10);
-            i /= 10;
-        }
-        return string(bstr);
-    }
+    //function uint2str(uint i) internal pure returns (string memory){
+        //if (i == 0) return "0";
+        //uint j = i;
+        //uint len;
+        //while (j != 0){
+            //len++;
+            //j /= 10;
+        //}
+        //bytes memory bstr = new bytes(len);
+        //uint k = len - 1;
+        //while (i != 0){
+            //bstr[k--] = byte(48 + i % 10);
+            //i /= 10;
+        //}
+        //return string(bstr);
+    //}
 
     using CBOR for Buffer.buffer;
     function stra2cbor(string[] memory arr) internal pure returns (bytes memory) {
@@ -936,53 +937,53 @@ contract usingOraclize {
         return oraclize_network_name;
     }
 
-    function oraclize_newRandomDSQuery(uint _delay, uint _nbytes, uint _customGasLimit) internal returns (bytes32){
-        require((_nbytes > 0) && (_nbytes <= 32));
-        // Convert from seconds to ledger timer ticks
-        _delay *= 10;
-        bytes memory nbytes = new bytes(1);
-        nbytes[0] = byte(_nbytes);
-        bytes memory unonce = new bytes(32);
-        bytes memory sessionKeyHash = new bytes(32);
-        bytes32 sessionKeyHash_bytes32 = oraclize_randomDS_getSessionPubKeyHash();
-        assembly {
-            mstore(unonce, 0x20)
-            // the following variables can be relaxed
-            // check relaxed random contract under ethereum-examples repo
-            // for an idea on how to override and replace comit hash vars
-            mstore(add(unonce, 0x20), xor(blockhash(sub(number, 1)), xor(coinbase, timestamp)))
-            mstore(sessionKeyHash, 0x20)
-            mstore(add(sessionKeyHash, 0x20), sessionKeyHash_bytes32)
-        }
-        bytes memory delay = new bytes(32);
-        assembly {
-            mstore(add(delay, 0x20), _delay)
-        }
+    //function oraclize_newRandomDSQuery(uint _delay, uint _nbytes, uint _customGasLimit) internal returns (bytes32){
+        //require((_nbytes > 0) && (_nbytes <= 32));
+        //// Convert from seconds to ledger timer ticks
+        //_delay *= 10;
+        //bytes memory nbytes = new bytes(1);
+        //nbytes[0] = byte(_nbytes);
+        //bytes memory unonce = new bytes(32);
+        //bytes memory sessionKeyHash = new bytes(32);
+        //bytes32 sessionKeyHash_bytes32 = oraclize_randomDS_getSessionPubKeyHash();
+        //assembly {
+            //mstore(unonce, 0x20)
+            //// the following variables can be relaxed
+            //// check relaxed random contract under ethereum-examples repo
+            //// for an idea on how to override and replace comit hash vars
+            //mstore(add(unonce, 0x20), xor(blockhash(sub(number, 1)), xor(coinbase, timestamp)))
+            //mstore(sessionKeyHash, 0x20)
+            //mstore(add(sessionKeyHash, 0x20), sessionKeyHash_bytes32)
+        //}
+        //bytes memory delay = new bytes(32);
+        //assembly {
+            //mstore(add(delay, 0x20), _delay)
+        //}
 
-        bytes memory delay_bytes8 = new bytes(8);
-        copyBytes(delay, 24, 8, delay_bytes8, 0);
+        //bytes memory delay_bytes8 = new bytes(8);
+        //copyBytes(delay, 24, 8, delay_bytes8, 0);
 
-        bytes[4] memory args = [unonce, nbytes, sessionKeyHash, delay];
-        bytes32 queryId = oraclize_query("random", args, _customGasLimit);
+        //bytes[4] memory args = [unonce, nbytes, sessionKeyHash, delay];
+        //bytes32 queryId = oraclize_query("random", args, _customGasLimit);
 
-        bytes memory delay_bytes8_left = new bytes(8);
+        //bytes memory delay_bytes8_left = new bytes(8);
 
-        assembly {
-            let x := mload(add(delay_bytes8, 0x20))
-            mstore8(add(delay_bytes8_left, 0x27), div(x, 0x100000000000000000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x26), div(x, 0x1000000000000000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x25), div(x, 0x10000000000000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x24), div(x, 0x100000000000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x23), div(x, 0x1000000000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x22), div(x, 0x10000000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x21), div(x, 0x100000000000000000000000000000000000000000000000000))
-            mstore8(add(delay_bytes8_left, 0x20), div(x, 0x1000000000000000000000000000000000000000000000000))
+        //assembly {
+            //let x := mload(add(delay_bytes8, 0x20))
+            //mstore8(add(delay_bytes8_left, 0x27), div(x, 0x100000000000000000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x26), div(x, 0x1000000000000000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x25), div(x, 0x10000000000000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x24), div(x, 0x100000000000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x23), div(x, 0x1000000000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x22), div(x, 0x10000000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x21), div(x, 0x100000000000000000000000000000000000000000000000000))
+            //mstore8(add(delay_bytes8_left, 0x20), div(x, 0x1000000000000000000000000000000000000000000000000))
 
-        }
+        //}
 
-        oraclize_randomDS_setCommitment(queryId, keccak256(abi.encodePacked(delay_bytes8_left, args[1], sha256(args[0]), args[2])));
-        return queryId;
-    }
+        //oraclize_randomDS_setCommitment(queryId, keccak256(abi.encodePacked(delay_bytes8_left, args[1], sha256(args[0]), args[2])));
+        //return queryId;
+    //}
 
     function oraclize_randomDS_setCommitment(bytes32 queryId, bytes32 commitment) internal {
         oraclize_randomDS_args[queryId] = commitment;
@@ -991,88 +992,88 @@ contract usingOraclize {
     mapping(bytes32=>bytes32) oraclize_randomDS_args;
     mapping(bytes32=>bool) oraclize_randomDS_sessionKeysHashVerified;
 
-    function verifySig(bytes32 tosignh, bytes memory dersig, bytes memory pubkey) internal returns (bool){
-        bool sigok;
-        address signer;
+    //function verifySig(bytes32 tosignh, bytes memory dersig, bytes memory pubkey) internal returns (bool){
+        //bool sigok;
+        //address signer;
 
-        bytes32 sigr;
-        bytes32 sigs;
+        //bytes32 sigr;
+        //bytes32 sigs;
 
-        bytes memory sigr_ = new bytes(32);
-        uint offset = 4+(uint(dersig[3]) - 0x20);
-        sigr_ = copyBytes(dersig, offset, 32, sigr_, 0);
-        bytes memory sigs_ = new bytes(32);
-        offset += 32 + 2;
-        sigs_ = copyBytes(dersig, offset+(uint(dersig[offset-1]) - 0x20), 32, sigs_, 0);
+        //bytes memory sigr_ = new bytes(32);
+        //uint offset = 4+(uint(dersig[3]) - 0x20);
+        //sigr_ = copyBytes(dersig, offset, 32, sigr_, 0);
+        //bytes memory sigs_ = new bytes(32);
+        //offset += 32 + 2;
+        //sigs_ = copyBytes(dersig, offset+(uint(dersig[offset-1]) - 0x20), 32, sigs_, 0);
 
-        assembly {
-            sigr := mload(add(sigr_, 32))
-            sigs := mload(add(sigs_, 32))
-        }
-
-
-        (sigok, signer) = safer_ecrecover(tosignh, 27, sigr, sigs);
-        if (address(keccak256(pubkey)) == signer) return true;
-        else {
-            (sigok, signer) = safer_ecrecover(tosignh, 28, sigr, sigs);
-            return (address(keccak256(pubkey)) == signer);
-        }
-    }
-
-    function oraclize_randomDS_proofVerify__sessionKeyValidity(bytes memory proof, uint sig2offset) internal returns (bool) {
-        bool sigok;
-
-        // Step 6: verify the attestation signature, APPKEY1 must sign the sessionKey from the correct ledger app (CODEHASH)
-        bytes memory sig2 = new bytes(uint(proof[sig2offset+1])+2);
-        copyBytes(proof, sig2offset, sig2.length, sig2, 0);
-
-        bytes memory appkey1_pubkey = new bytes(64);
-        copyBytes(proof, 3+1, 64, appkey1_pubkey, 0);
-
-        bytes memory tosign2 = new bytes(1+65+32);
-        tosign2[0] = byte(1); //role
-        copyBytes(proof, sig2offset-65, 65, tosign2, 1);
-        bytes memory CODEHASH = hex"fd94fa71bc0ba10d39d464d0d8f465efeef0a2764e3887fcc9df41ded20f505c";
-        copyBytes(CODEHASH, 0, 32, tosign2, 1+65);
-        sigok = verifySig(sha256(tosign2), sig2, appkey1_pubkey);
-
-        if (sigok == false) return false;
+        //assembly {
+            //sigr := mload(add(sigr_, 32))
+            //sigs := mload(add(sigs_, 32))
+        //}
 
 
-        // Step 7: verify the APPKEY1 provenance (must be signed by Ledger)
-        bytes memory LEDGERKEY = hex"7fb956469c5c9b89840d55b43537e66a98dd4811ea0a27224272c2e5622911e8537a2f8e86a46baec82864e98dd01e9ccc2f8bc5dfc9cbe5a91a290498dd96e4";
+        //(sigok, signer) = safer_ecrecover(tosignh, 27, sigr, sigs);
+        //if (address(keccak256(pubkey)) == signer) return true;
+        //else {
+            //(sigok, signer) = safer_ecrecover(tosignh, 28, sigr, sigs);
+            //return (address(keccak256(pubkey)) == signer);
+        //}
+    //}
 
-        bytes memory tosign3 = new bytes(1+65);
-        tosign3[0] = 0xFE;
-        copyBytes(proof, 3, 65, tosign3, 1);
+    //function oraclize_randomDS_proofVerify__sessionKeyValidity(bytes memory proof, uint sig2offset) internal returns (bool) {
+        //bool sigok;
 
-        bytes memory sig3 = new bytes(uint(proof[3+65+1])+2);
-        copyBytes(proof, 3+65, sig3.length, sig3, 0);
+        //// Step 6: verify the attestation signature, APPKEY1 must sign the sessionKey from the correct ledger app (CODEHASH)
+        //bytes memory sig2 = new bytes(uint(proof[sig2offset+1])+2);
+        //copyBytes(proof, sig2offset, sig2.length, sig2, 0);
 
-        sigok = verifySig(sha256(tosign3), sig3, LEDGERKEY);
+        //bytes memory appkey1_pubkey = new bytes(64);
+        //copyBytes(proof, 3+1, 64, appkey1_pubkey, 0);
 
-        return sigok;
-    }
+        //bytes memory tosign2 = new bytes(1+65+32);
+        //tosign2[0] = byte(1); //role
+        //copyBytes(proof, sig2offset-65, 65, tosign2, 1);
+        //bytes memory CODEHASH = hex"fd94fa71bc0ba10d39d464d0d8f465efeef0a2764e3887fcc9df41ded20f505c";
+        //copyBytes(CODEHASH, 0, 32, tosign2, 1+65);
+        //sigok = verifySig(sha256(tosign2), sig2, appkey1_pubkey);
 
-    modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string memory _result, bytes memory _proof) {
-        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
-        require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
+        //if (sigok == false) return false;
 
-        bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
-        require(proofVerified);
 
-        _;
-    }
+        //// Step 7: verify the APPKEY1 provenance (must be signed by Ledger)
+        //bytes memory LEDGERKEY = hex"7fb956469c5c9b89840d55b43537e66a98dd4811ea0a27224272c2e5622911e8537a2f8e86a46baec82864e98dd01e9ccc2f8bc5dfc9cbe5a91a290498dd96e4";
 
-    function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string memory _result, bytes memory _proof) internal returns (uint8){
-        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
-        if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
+        //bytes memory tosign3 = new bytes(1+65);
+        //tosign3[0] = 0xFE;
+        //copyBytes(proof, 3, 65, tosign3, 1);
 
-        bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
-        if (proofVerified == false) return 2;
+        //bytes memory sig3 = new bytes(uint(proof[3+65+1])+2);
+        //copyBytes(proof, 3+65, sig3.length, sig3, 0);
 
-        return 0;
-    }
+        //sigok = verifySig(sha256(tosign3), sig3, LEDGERKEY);
+
+        //return sigok;
+    //}
+
+    //modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string memory _result, bytes memory _proof) {
+        //// Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
+        //require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
+
+        //bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
+        //require(proofVerified);
+
+        //_;
+    //}
+
+    //function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string memory _result, bytes memory _proof) internal returns (uint8){
+        //// Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
+        //if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
+
+        //bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
+        //if (proofVerified == false) return 2;
+
+        //return 0;
+    //}
 
     function matchBytes32Prefix(bytes32 content, bytes memory prefix, uint n_random_bytes) internal pure returns (bool){
         bool match_ = true;
@@ -1086,48 +1087,48 @@ contract usingOraclize {
         return match_;
     }
 
-    function oraclize_randomDS_proofVerify__main(bytes memory proof, bytes32 queryId, bytes memory result, string memory context_name) internal returns (bool){
+    //function oraclize_randomDS_proofVerify__main(bytes memory proof, bytes32 queryId, bytes memory result, string memory context_name) internal returns (bool){
 
-        // Step 2: the unique keyhash has to match with the sha256 of (context name + queryId)
-        uint ledgerProofLength = 3+65+(uint(proof[3+65+1])+2)+32;
-        bytes memory keyhash = new bytes(32);
-        copyBytes(proof, ledgerProofLength, 32, keyhash, 0);
-        //if (!(keccak256(keyhash) == keccak256(sha256(context_name, queryId)))) return false;
-        if (!(keccak256(keyhash) == keccak256(abi.encodePacked(sha256(abi.encodePacked(context_name, queryId)))))) return false;
+        //// Step 2: the unique keyhash has to match with the sha256 of (context name + queryId)
+        //uint ledgerProofLength = 3+65+(uint(proof[3+65+1])+2)+32;
+        //bytes memory keyhash = new bytes(32);
+        //copyBytes(proof, ledgerProofLength, 32, keyhash, 0);
+        ////if (!(keccak256(keyhash) == keccak256(sha256(context_name, queryId)))) return false;
+        //if (!(keccak256(keyhash) == keccak256(abi.encodePacked(sha256(abi.encodePacked(context_name, queryId)))))) return false;
 
-        bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
-        copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
+        //bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
+        //copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
-        if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
+        //// Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
+        //if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
-        // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
-        // This is to verify that the computed args match with the ones specified in the query.
-        bytes memory commitmentSlice1 = new bytes(8+1+32);
-        copyBytes(proof, ledgerProofLength+32, 8+1+32, commitmentSlice1, 0);
+        //// Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
+        //// This is to verify that the computed args match with the ones specified in the query.
+        //bytes memory commitmentSlice1 = new bytes(8+1+32);
+        //copyBytes(proof, ledgerProofLength+32, 8+1+32, commitmentSlice1, 0);
 
-        bytes memory sessionPubkey = new bytes(64);
-        uint sig2offset = ledgerProofLength+32+(8+1+32)+sig1.length+65;
-        copyBytes(proof, sig2offset-64, 64, sessionPubkey, 0);
+        //bytes memory sessionPubkey = new bytes(64);
+        //uint sig2offset = ledgerProofLength+32+(8+1+32)+sig1.length+65;
+        //copyBytes(proof, sig2offset-64, 64, sessionPubkey, 0);
 
-        bytes32 sessionPubkeyHash = sha256(sessionPubkey);
-        if (oraclize_randomDS_args[queryId] == keccak256(abi.encodePacked(commitmentSlice1, sessionPubkeyHash))) { //unonce, nbytes and sessionKeyHash match
-            delete oraclize_randomDS_args[queryId];
-        } else return false;
+        //bytes32 sessionPubkeyHash = sha256(sessionPubkey);
+        //if (oraclize_randomDS_args[queryId] == keccak256(abi.encodePacked(commitmentSlice1, sessionPubkeyHash))) { //unonce, nbytes and sessionKeyHash match
+            //delete oraclize_randomDS_args[queryId];
+        //} else return false;
 
 
-        // Step 5: validity verification for sig1 (keyhash and args signed with the sessionKey)
-        bytes memory tosign1 = new bytes(32+8+1+32);
-        copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
-        if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
+        //// Step 5: validity verification for sig1 (keyhash and args signed with the sessionKey)
+        //bytes memory tosign1 = new bytes(32+8+1+32);
+        //copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
+        //if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
-        if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
-            oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
-        }
+        //// verify if sessionPubkeyHash was verified already, if not.. let's do it!
+        //if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
+            //oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
+        //}
 
-        return oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash];
-    }
+        //return oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash];
+    //}
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
     function copyBytes(bytes memory from, uint fromOffset, uint length, bytes memory to, uint toOffset) internal pure returns (bytes memory) {
