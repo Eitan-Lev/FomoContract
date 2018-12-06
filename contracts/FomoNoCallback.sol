@@ -1,7 +1,8 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.24;
+//pragma solidity ^0.4.24;
 
 contract FomoNoCallback {
-	address public lastPlayer;
+	address payable public lastPlayer;
 	uint public lastTime;
 	address public lastWinner;
 	uint public lastWinAmount;
@@ -14,9 +15,9 @@ contract FomoNoCallback {
 	event WinnerAnnouncement(address indexed _winner, uint indexed _amount, uint indexed _lastWinTime);
 
 	constructor() public {
-		lastPlayer = 0;
+		lastPlayer = address(0);
 		lastTime = now;
-		lastWinner = 0;
+		lastWinner = address(0);
 		lastWinAmount = 0;
 		lastWinTime = 0;
 		currentWinAmount = 0;
@@ -30,12 +31,12 @@ contract FomoNoCallback {
 	}
 
 	function announceWinner() public payable {
-		if (now > lastTime + gameTime*(1 seconds) && lastPlayer != 0) {
+		if (now > lastTime + gameTime*(1 seconds) && lastPlayer != address(0)) {
 			lastPlayer.transfer(currentWinAmount);
 			lastWinner = lastPlayer;
 			lastWinAmount = currentWinAmount;
 			currentWinAmount = 0;
-			lastPlayer = 0;
+			lastPlayer = address(0);
 			lastTime = now;
 			lastWinTime = now;
 			emit WinnerAnnouncement(lastWinner, lastWinAmount, lastWinTime);
