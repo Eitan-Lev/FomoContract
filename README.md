@@ -11,10 +11,9 @@ Note that these instructions are dynamic, since I don't want to install anything
 ### After each clone you do (or directory change):
 1. npm init (press enter till it's done)
 1. npm install --save solc ganache-cli
-1. npm i truffle\
-*(-- END OF VERSION 0 --)*
-1. npm install truffle mocha mocha-junit-reporter --save-dev\
-*(-- END OF VERSION 1 --)*
+1. npm uninstall -g truffle
+1. npm install -g truffle@beta
+1. npm install truffle@beta mocha mocha-junit-reporter --save-dev\
 
 
 After doing above steps the truffle commands should all work.
@@ -24,12 +23,12 @@ After doing above steps the truffle commands should all work.
     1. in a seperate terminal window: "ganache-cli -b 3"\
     This should start a ganache instance and print all sorts of things. Wait a second for it to finish.
     In this window you can see all the actions you perform on the blockchain if you work locally.
-    1. truffle compile\
+    1. npx truffle compile\
     This should print "Compiling ./contracts/..." and "Writing artifacts to ./build/contracts"
-    1. truffle migrate\
+    1. npx truffle migrate\
     This should print out many migrations with addresses.
     If you configured the "truffle.js" to the Rinkby network (does not apply right now) then these addresses are the actuall ones the contracts are deployed to each time you migrate.
-    1. truffle test\
+    1. npx truffle test\
     This should produce an output of what network to use and a summary of the tests success.
 1. do "git status"- nothing should have been added (no files changed).
 
