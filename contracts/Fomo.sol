@@ -1,4 +1,5 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.24;
+//pragma solidity ^0.4.24;
 //import { increaseTimeTo, duration } from './helpers/increaseTime';
 //import latestTime from './helpers/latestTime';
 //import "installed_contracts/oraclize-api/contracts/usingOraclize.sol";
@@ -7,7 +8,7 @@ import "./usingOraclize.sol";
 contract Fomo is usingOraclize{
 
       //Contract variable
-      address public lastPlayer;
+      address payable public lastPlayer;
       uint public lastTime;
 	    uint public currentWinAmount;
 
@@ -33,9 +34,9 @@ contract Fomo is usingOraclize{
       // ...
       // Constructor
       constructor() public {
-            lastPlayer = 0;
+            lastPlayer = address(0);
         		lastTime = now;
-        		lastWinner = 0;
+        		lastWinner = address(0);
         		lastWinAmount = 0;
         		lastWinTime = 0;
         		currentWinAmount = 0;
@@ -47,7 +48,7 @@ contract Fomo is usingOraclize{
           lastWinner = lastPlayer;
           lastWinAmount = currentWinAmount;
     		  currentWinAmount = 0;
-    		  lastPlayer = 0;
+    		  lastPlayer = address(0);
     		  lastTime = now;
     		  lastWinTime = now;
           emit WinnerAnnouncement(lastWinner);//(lastWinner, lastWinAmount, lastWinTime);
@@ -66,7 +67,7 @@ contract Fomo is usingOraclize{
           return true;
       }
 
-      function __callback(bytes32 id, string result, bytes proof) public {
+      function __callback(bytes32 id, string memory result, bytes memory proof) public {
           if (id == LastQueryId) {
               announceWinner();
             }
