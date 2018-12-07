@@ -4,6 +4,7 @@ import './App.css';
 import ReadGameTime from "./ReadGameTime";
 import BuyTicket from "./BuyTicket";
 import SetGameTime from "./SetGameTime";
+import ReadLastTime from "./ReadLastTime";
 
 class App extends Component {
   state = { loading: true, drizzleState: null };
@@ -32,6 +33,10 @@ class App extends Component {
     if (this.state.loading) return "Loading Drizzle...";
     return (
       <div className="App">
+        <ReadLastTime
+          drizzle={this.props.drizzle}
+          drizzleState={this.state.drizzleState}
+        />
         <ReadGameTime
           drizzle={this.props.drizzle}
           drizzleState={this.state.drizzleState}
