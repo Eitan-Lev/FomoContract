@@ -20,3 +20,5 @@
 # Allow contracts to be tracked but not .json files of them
 !/contracts
 /contracts/build
+
+!/client
