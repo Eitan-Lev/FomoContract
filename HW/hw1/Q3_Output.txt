@@ -1,0 +1,5 @@
+###  Question  3 ###
+2P: (6, 34)
+3P: O
+P + Q: (9, 27)
+### End Question ###
