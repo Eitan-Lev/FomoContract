@@ -1,10 +1,11 @@
 import React, { Component } from 'react';// eslint-disable-next-line
 import logo from './logo.svg';// eslint-disable-line
 import './App.css';
-import ReadGameTime from "./ReadGameTime";
-import BuyTicket from "./BuyTicket";
-import SetGameTime from "./SetGameTime";
-import ReadLastTime from "./ReadLastTime";
+import ReadGameTime from "./components/ReadGameTime";
+import BuyTicket from "./components/BuyTicket";
+import SetGameTime from "./components/SetGameTime";
+import ReadLastTime from "./components/ReadLastTime";
+import ReadCurrentWinAmount from "./components/ReadCurrentWinAmount";
 
 class App extends Component {
   state = { loading: true, drizzleState: null };
@@ -46,6 +47,10 @@ class App extends Component {
           drizzleState={this.state.drizzleState}
         />
         <BuyTicket
+          drizzle={this.props.drizzle}
+          drizzleState={this.state.drizzleState}
+        />
+        <ReadCurrentWinAmount
           drizzle={this.props.drizzle}
           drizzleState={this.state.drizzleState}
         />

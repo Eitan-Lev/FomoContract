@@ -1,36 +1,35 @@
 import React from "react";
+const verifiers = require('../helpers/verifiers');
+const accounts = require('../helpers/accounts');
 
 class BuyTicket extends React.Component {
   state = { stackId: null, value: null };
 
   handleKeyDown = e => {
     if (e.keyCode === 13 && e.target.value) {
-      this.setValueIfValid(e.target.value);
+      const value = this.state.value;
+      if (verifiers.checkValueIsNumber(value)) this.BuyTicketMethod(value);
     }
   };
 
   handleSubmit = e => async event => {
     event.preventDefault();
-    if (e) this.setValueIfValid(e);
+    if (verifiers.checkValueIsNumber(e)) this.BuyTicketMethod(e);
   };
 
-  setValueIfValid = value => {
-    var regex=/^[0-9]+$/;
-    if (value && (value).match(regex)) this.setValue(value);
-  };
-
-  setValue = value => {
+  BuyTicketMethod = value => {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.FomoNoCallback;
 
     // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods["buyTicket"].cacheSend({
-      from: drizzleState.accounts[0],
+    const stackId = contract.methods.buyTicket.cacheSend({
+      // from: drizzleState.accounts[0],
+      from: drizzleState.accounts[accounts.Temp],// TODO
       value: value
     });
 
     // save the `stackId` for later reference
-    this.setState({ stackId: stackId });
+    this.setState({ stackId: stackId, value: null });
   };
 
   getTxStatus = () => {

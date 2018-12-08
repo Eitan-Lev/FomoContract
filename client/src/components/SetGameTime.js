@@ -1,22 +1,20 @@
 import React from "react";
+const verifiers = require('../helpers/verifiers');
+const accounts = require('../helpers/accounts');
 
 class SetGameTime extends React.Component {
   state = { stackId: null, value: null };
 
   handleKeyDown = e => {
     if (e.keyCode === 13 && e.target.value) {
-      this.setValueIfValid(e.target.value);
+      const value = e.target.value;
+      if (verifiers.checkValueIsNumber(value)) this.setValue(value);
     }
   };
 
   handleSubmit = e => async event => {
     event.preventDefault();
-    if (e) this.setValueIfValid(e);
-  };
-
-  setValueIfValid = value => {
-    var regex=/^[0-9]+$/;
-    if (value && (value).match(regex)) this.setValue(value);
+    if (verifiers.checkValueIsNumber(e)) this.setValue(e);
   };
 
   setValue = value => {
@@ -24,8 +22,9 @@ class SetGameTime extends React.Component {
     const contract = drizzle.contracts.FomoNoCallback;
 
     // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods["changeGameTime"].cacheSend(value, {
-      from: drizzleState.accounts[0]
+    const stackId = contract.methods.changeGameTime.cacheSend(value, {
+      // from: drizzleState.accounts[0],
+      from: drizzleState.accounts[accounts.Temp],// TODO
     });
 
     // save the `stackId` for later reference

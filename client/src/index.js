@@ -8,10 +8,12 @@ import * as serviceWorker from './serviceWorker';
 
 // import drizzle functions and contract artifact
 import { Drizzle, generateStore } from "drizzle";
-import MyStringStore from "./contracts/FomoNoCallback.json";
+// import MyStringStore from "./contracts/FomoNoCallback.json";
+import drizzleOptions from "./drizzleOptions";
 
 // let drizzle know what contracts we want
-const options = { contracts: [MyStringStore] };
+// const options = { contracts: [MyStringStore] };
+const options = drizzleOptions;
 
 // setup the drizzle store and drizzle
 const drizzleStore = generateStore(options);

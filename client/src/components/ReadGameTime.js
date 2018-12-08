@@ -17,6 +17,9 @@ class ReadGameTime extends React.Component {
   render() {
     // get the contract state from drizzleState
     const { FomoNoCallback } = this.props.drizzleState.contracts;
+    // const {events} = FomoNoCallback.events;
+    // TODO
+    // console.log(event);
 
     // using the saved `dataKey`, get the variable we're interested in
     const myString = FomoNoCallback.gameTime[this.state.dataKey];

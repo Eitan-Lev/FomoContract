@@ -8,7 +8,7 @@ class ReadLastTime extends React.Component {
     const contract = drizzle.contracts.FomoNoCallback;
 
     // let drizzle know we want to watch the `myString` method
-    const dataKey = contract.methods["lastTime"].cacheCall();
+    const dataKey = contract.methods.lastTime.cacheCall();
 
     // save the `dataKey` to local component state for later reference
     this.setState({ dataKey: dataKey });
