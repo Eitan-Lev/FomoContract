@@ -1,3 +1,12 @@
+# Front End Using Drizzle
+
+## Start Using Drizzle in this Repository
+
+1. `cd` into client directory
+1. `npm install`
+1. `npm start`
+1. from here you can use the below scripts
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
