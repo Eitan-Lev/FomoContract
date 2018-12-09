@@ -1,0 +1,22 @@
+
+For the entire exercise It is Ok to get from the web mod arithmetic, but not more. Clearly mark code obtained from external sources. 
+
+RSA-Sign and verify a message (number)
+Use Python or a language of your choice. You can take a multiplicative inverse modulo implementation from the Internet, but nothing else.
+
+Given the primes p=4973 and q=5347, and randomly chosen e=1547,
+
+(a) calculate the public key (n, e) and private key d.
+
+(b) Sign the message m=122 and verify that the signature is valid.
+
+Submit the program and the signature. 
+
+Elliptic Curve Example
+Find all the points in the elliptic curve y^2=x^3-5x+8 in the finite field F_37. 
+
+Submit the program and points.
+
+For the two points in the curve P=(6, 3) and Q=(9, 10) calculate 2P, 3P, P+Q. 
+Submit the program and results. 
+
