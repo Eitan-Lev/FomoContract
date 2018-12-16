@@ -15,7 +15,7 @@
 // }
 //
 // export default Accounts;
-const Temp = 0, Creator = 1;
+const Temp = 0, Creator = 1, Acc1=2, Acc2=3, Acc3=4;
 
 module.exports = {
   Temp, Creator,
@@ -25,6 +25,12 @@ module.exports = {
         return 1;
       case "temp":
         return 0;
+	  case "Acc1":
+		return 2
+	  case "Acc2":
+		return 3
+	  case "Acc3":
+		return 4
       default:
         return (-1);
     }

@@ -3,7 +3,7 @@ const verifiers = require('../helpers/verifiers');
 const accounts = require('../helpers/accounts');
 
 class BuyTicket extends React.Component {
-  state = { stackId: null, value: null };
+  state = { stackId: null, value: null, account : accounts.Acc1 };
 
   handleKeyDown = e => {
     if (e.keyCode === 13 && e.target.value) {
@@ -16,19 +16,29 @@ class BuyTicket extends React.Component {
     event.preventDefault();
     if (verifiers.checkValueIsNumber(e)) this.BuyTicketMethod(e);
   };
-
+  
+  handleChange = e =>{
+	this.setState({account : accounts.getAccount(e.target.value)});
+  };
+  
   BuyTicketMethod = value => {
     const { drizzle, drizzleState } = this.props;
-    //const contract = drizzle.contracts.FomoNoCallback;
-	const contract = drizzle.contracts.Fomo;
+    const contract = drizzle.contracts.FomoNoCallback;
+	//const contract = drizzle.contracts.Fomo;
+    
+	// let drizzle know we want to call the `set` method with `value`
+    
+	//console.log("Account purchasing ticket: ", drizzleState.accounts[this.state.account]);
 	
-    // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods.buyTicket.cacheSend({
+	const stackId = contract.methods.buyTicket.cacheSend({
       // from: drizzleState.accounts[0],
-      from: drizzleState.accounts[accounts.Temp],// TODO
-      value: value
+      from: drizzleState.accounts[this.state.account],// TODO
+      value: value,
+	  gas: 200000
     });
+	
 
+	
     // save the `stackId` for later reference
     this.setState({ stackId: stackId, value: null });
   };
@@ -40,6 +50,8 @@ class BuyTicket extends React.Component {
     // get the transaction hash using our saved `stackId`
     const txHash = transactionStack[this.state.stackId];
 
+	//console.log("getTxStatus", txHash);
+	
     // if transaction hash does not exist, don't display anything
     if (!txHash) return null;
 
@@ -57,9 +69,17 @@ class BuyTicket extends React.Component {
           onKeyDown={this.handleKeyDown}
           onChange={event => this.setState({ value: event.target.value })}
         />
+		<select id="userSel" onChange={this.handleChange}>
+			<option value="Acc1">Account 1</option>
+			<option value="Acc2">Account 2</option>
+			<option value="Acc3">Account 3</option>
+		</select>
         <input type="submit" value="Submit" />
         <div>{this.getTxStatus()}</div>
       </div>
+	  <div>
+		
+	  </div>
       </form>
     );
   }

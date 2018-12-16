@@ -19,8 +19,8 @@ class SetGameTime extends React.Component {
 
   setValue = value => {
     const { drizzle, drizzleState } = this.props;
-    //const contract = drizzle.contracts.FomoNoCallback;
-	const contract = drizzle.contracts.Fomo;
+    const contract = drizzle.contracts.FomoNoCallback;
+	//const contract = drizzle.contracts.Fomo;
     
 	// let drizzle know we want to call the `set` method with `value`
     const stackId = contract.methods.changeGameTime.cacheSend(value, {

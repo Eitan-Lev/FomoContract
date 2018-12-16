@@ -11,6 +11,7 @@ contract FomoNoCallback {
 	uint public gameTime = 1 minutes;
 	address public gameCreator;
 
+	event PayEvent(address _buyer);
 	event WinnerAnnouncement(address indexed _winner, uint indexed _amount, uint indexed _lastWinTime);
 
 	constructor() public {
@@ -27,6 +28,7 @@ contract FomoNoCallback {
 		currentWinAmount += msg.value - feeValue;
 		lastPlayer = msg.sender;
 		lastTime = now;
+		emit PayEvent(msg.sender);
 	}
 
 	function announceWinner() public payable {
