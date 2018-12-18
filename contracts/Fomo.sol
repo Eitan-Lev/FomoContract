@@ -40,6 +40,7 @@ contract Fomo is usingOraclize{
         		lastWinTime = 0;
         		currentWinAmount = 0;
         		gameCreator = msg.sender;
+            OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
       }
 
       function announceWinner ()  public returns (bool) {

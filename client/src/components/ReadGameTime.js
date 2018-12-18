@@ -5,9 +5,9 @@ class ReadGameTime extends React.Component {
 
   componentDidMount() {
     const { drizzle } = this.props;
-    const contract = drizzle.contracts.FomoNoCallback;
-	//const contract = drizzle.contracts.Fomo;
-	
+  //  const contract = drizzle.contracts.FomoNoCallback;
+	const contract = drizzle.contracts.Fomo;
+
     // let drizzle know we want to watch the `myString` method
     const dataKey = contract.methods["gameTime"].cacheCall();
 
@@ -18,9 +18,9 @@ class ReadGameTime extends React.Component {
   render() {
     // get the contract state from drizzleState
     //const { FomoNoCallback } = this.props.drizzleState.contracts;
-	const contract = this.props.drizzleState.contracts.FomoNoCallback;
-	//const contract = this.props.drizzleState.contracts.Fomo;
-	
+    const contract = this.props.drizzleState.contracts.Fomo;
+	//const contract = this.props.drizzleState.contracts.FomoNoCallback;
+
     // const {events} = FomoNoCallback.events;
     // TODO
     // console.log(event);

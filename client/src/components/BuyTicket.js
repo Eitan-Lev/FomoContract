@@ -16,29 +16,26 @@ class BuyTicket extends React.Component {
     event.preventDefault();
     if (verifiers.checkValueIsNumber(e)) this.BuyTicketMethod(e);
   };
-  
+
   handleChange = e =>{
 	this.setState({account : accounts.getAccount(e.target.value)});
   };
-  
+
   BuyTicketMethod = value => {
     const { drizzle, drizzleState } = this.props;
-    const contract = drizzle.contracts.FomoNoCallback;
-	//const contract = drizzle.contracts.Fomo;
-    
+  //  const contract = drizzle.contracts.FomoNoCallback;
+	const contract = drizzle.contracts.Fomo;
+
 	// let drizzle know we want to call the `set` method with `value`
-    
+
 	//console.log("Account purchasing ticket: ", drizzleState.accounts[this.state.account]);
-	
+
 	const stackId = contract.methods.buyTicket.cacheSend({
       // from: drizzleState.accounts[0],
       from: drizzleState.accounts[this.state.account],// TODO
-      value: value,
+      value: value*1000000000000000000,
 	  gas: 200000
     });
-	
-
-	
     // save the `stackId` for later reference
     this.setState({ stackId: stackId, value: null });
   };
@@ -51,7 +48,7 @@ class BuyTicket extends React.Component {
     const txHash = transactionStack[this.state.stackId];
 
 	//console.log("getTxStatus", txHash);
-	
+
     // if transaction hash does not exist, don't display anything
     if (!txHash) return null;
 
@@ -63,7 +60,7 @@ class BuyTicket extends React.Component {
     return (
       <form onSubmit={this.handleSubmit(this.state.value)}>
       <div>
-        Buy Ticket of value: &nbsp;
+        Buy Ticket of value [Ether]: &nbsp;
         <input
           type="text"
           onKeyDown={this.handleKeyDown}
@@ -78,7 +75,6 @@ class BuyTicket extends React.Component {
         <div>{this.getTxStatus()}</div>
       </div>
 	  <div>
-		
 	  </div>
       </form>
     );
