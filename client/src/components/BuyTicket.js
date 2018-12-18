@@ -36,9 +36,6 @@ class BuyTicket extends React.Component {
       value: value*1000000000000000000,
 	  gas: 200000
     });
-
-
-
     // save the `stackId` for later reference
     this.setState({ stackId: stackId, value: null });
   };
@@ -78,7 +75,6 @@ class BuyTicket extends React.Component {
         <div>{this.getTxStatus()}</div>
       </div>
 	  <div>
-
 	  </div>
       </form>
     );

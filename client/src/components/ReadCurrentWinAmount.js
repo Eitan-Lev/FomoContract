@@ -9,6 +9,7 @@ class ReadCurrentWinAmount extends React.Component {
   //  const contract = drizzle.contracts.FomoNoCallback;
 	const contract = drizzle.contracts.Fomo;
 
+
     // let drizzle know we want to watch the `myString` method
     const dataKey = contract.methods.currentWinAmount.cacheCall();
 
@@ -22,6 +23,7 @@ class ReadCurrentWinAmount extends React.Component {
 
 	//	const contract = this.props.drizzleState.contracts.FomoNoCallback;
 	const contract = this.props.drizzleState.contracts.Fomo;
+
 
 	// using the saved `dataKey`, get the variable we're interested in
     const myString = contract.currentWinAmount[this.state.dataKey];

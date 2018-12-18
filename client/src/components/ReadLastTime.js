@@ -38,6 +38,7 @@ class ReadLastTime extends React.Component {
 		//this.setState( {lastTimeKey: lastWinTime});
 	});
 /*
+
 	contract.events.PayEvent({ }, (error, e) => {
 		console.log(e);
 		const localContract = this.props.drizzleState.contracts.FomoNoCallback;
@@ -54,6 +55,7 @@ class ReadLastTime extends React.Component {
     // Remove one second, set state so a re-render happens.
     let seconds = this.state.timeLeft - 1;
 	if (seconds == 0) {
+
       clearInterval(this.timer);
     }
     this.setState({
