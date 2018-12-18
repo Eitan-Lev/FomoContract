@@ -6,7 +6,9 @@ Note that these instructions are dynamic, since I don't want to install anything
 
 ### Initial use of this repository:
 1. Create a directory for the repository.
-1. do: "git clone https://github.com/Eitan-Lev/FomoContract.git"
+2. do: "git clone https://github.com/Eitan-Lev/FomoContract.git"
+3. do: "git submodule init"
+4. do: "git submodule update"
 
 ### After each clone you do (or directory change):
 `npm install` from inside the FomoContract directory.\
@@ -37,6 +39,10 @@ Do not merge to master if there is any chance it will cause trouble to anyone el
 Changes to these files can be hazardous to the repository!
 
 ### How to run with front end (in general):
+1. do: "npm install" from client folder
+1. do: "npm install" from client\etherum-bridge folder
+1. Migrate the contracts to Ganache
+1. do: "npm start" from client folder
 1. Use a localhost or remote "real" website, doesn't matter.
 1. Deploy the FOMO contract or any other relevant one (anyway you want, such as Remix).
 1. Keep the address, insert it to the appropriate place in the front end code (find it, has to be somewhere).

@@ -37,31 +37,7 @@ class ReadLastTime extends React.Component {
 	contract.events.WinnerAnnouncement({ }, (error, e) => {
 		//this.setState( {lastTimeKey: lastWinTime});
 	});
-/*
 
-	contract.events.PayEvent({ }, (error, e) => {
-		console.log(e);
-		const localContract = this.props.drizzleState.contracts.FomoNoCallback;
-		var currentDate = new Date();
-		var currentSeconds = Math.floor(currentDate.getTime()/ 1000);
-		var lastTime = localContract.lastTime[this.state.lastTimeKey];
-		var timeLeft = currentSeconds - lastTime.value;
-		this.timer = setInterval(this.countDown, 1000);
-		this.setState( {lastTime: localContract.lastTime[this.state.lastTimeKey], timeLeft : timeLeft});
-	});
-  }
-
-  countDown() {
-    // Remove one second, set state so a re-render happens.
-    let seconds = this.state.timeLeft - 1;
-	if (seconds == 0) {
-
-      clearInterval(this.timer);
-    }
-    this.setState({
-      timeLeft: seconds,
-    });
-  */
   }
 
   render() {
@@ -82,8 +58,7 @@ class ReadLastTime extends React.Component {
     // if it exists, then we display its value
 	// 		<p>Last Player Time: {myString && myString.value}</p>
 
-    return 	<p><div>Last bought ticket time : {lastTimeUTC.toUTCString()}</div>
-              <div>Time Left In Game: {timeLeftNonNegative} gameIsOn= {gameIsOn}</div></p>;
+    return 	<div>Time Left In Game: {timeLeftNonNegative}</div>;
 
   }
 }

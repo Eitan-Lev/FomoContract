@@ -79,18 +79,6 @@ class BuyTicket extends React.Component {
       </form>
     );
   }
-  // render() {
-  //   return (
-  //     <div>
-  //       Buy Ticket of value: &nbsp;
-  //       <input
-  //         type="text"
-  //         onKeyDown={this.handleKeyDown}
-  //         />
-  //       <div>{this.getTxStatus()}</div>
-  //     </div>
-  //   );
-  // }
 }
 
 export default BuyTicket;

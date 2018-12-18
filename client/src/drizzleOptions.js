@@ -3,9 +3,10 @@ import FomoJson from "./contracts/Fomo.json";
 
 
 const drizzleOptions = {
-  contracts: [MyStringStore],
+  contracts: [MyStringStore, FomoJson],
   events: {
-    MyStringStore: ['WinnerAnnouncement', 'PayEvent']
+    MyStringStore: ['WinnerAnnouncement', 'PayEvent'],
+	FomoJson: ['WinnerAnnouncement', 'payEvent']
   }
 }
 
