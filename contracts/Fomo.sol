@@ -37,9 +37,10 @@ contract Fomo is usingOraclize{
         		lastTime = now;
         		lastWinner = 0;
         		lastWinAmount = 0;
-        		lastWinTime = 0;
+        		lastWinTime = now;
         		currentWinAmount = 0;
         		gameCreator = msg.sender;
+            OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
       }
 
       function announceWinner ()  public returns (bool) {
@@ -72,7 +73,7 @@ contract Fomo is usingOraclize{
             }
        }
 
-      function changeGameTime(uint timeInterval) public onlyMaster {
+      function changeGameTime(uint timeInterval) public onlyMaster notInGame {
      		 gameTime = timeInterval;
      	}
 
@@ -80,6 +81,9 @@ contract Fomo is usingOraclize{
      		 require(msg.sender == gameCreator, "Changing game time intervals is allowed only by the creator");
      		  _;
      	}
-
+      modifier notInGame() {
+     		 require(lastWinTime == lastTime, "Changing game time intervals is allowed only When no game is running");
+     		  _;
+     	}
 
 }
